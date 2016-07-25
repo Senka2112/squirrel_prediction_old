@@ -12,7 +12,7 @@ import mvm_mmmvr_lib.mvm_validation_cls as mvm_validation_cls
 
 rospy.init_node('relations_prediction')
 
-def test_mvm_main(workmode, data_path, input_file, output_file):
+def test_mvm_main(workmode, data_path, input_file, output_file, number_of_columns):
 
   params=mmr_setparams.cls_params()
 
@@ -87,7 +87,7 @@ def test_mvm_main(workmode, data_path, input_file, output_file):
 
 def callback(data):
     #input
-    test_mvm_main(0, data.data_path, data.input_file, data.output_file)
+    test_mvm_main(0, data.data_path, data.input_file, data.output_file, data.number_of_columns)
     resp = RecommendRelationsResponse()
     resp.finished = True
     #RecommendRelationsResponse.FAILURE = uint8(0)

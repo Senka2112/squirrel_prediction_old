@@ -19,7 +19,7 @@ class cls_label_files:
 
   """
 
-  def __init__(self, data_path, input_file, output_file):
+  def __init__(self, data_path, input_file, output_file, number_of_columns):
 
     self.sbasedir=data_path
     self.listfull=input_file
@@ -33,7 +33,7 @@ class cls_label_files:
     self.test_predicted_data='test_prediction.txt'
     self.full_predicted_data='full_prediction.txt'
 
-    self.nfeature=5 ## number of features assigned to each pair of objects
+    self.nfeature=number_of_columns ## number of features assigned to each pair of objects
     self.feature_orig=2
 
     self.dobject={}   ## object name -> object index
