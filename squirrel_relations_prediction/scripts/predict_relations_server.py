@@ -26,7 +26,7 @@ def test_mvm_main(workmode, data_path, input_file, output_file, number_of_column
 
     Y0=np.array([0,1,2,3])
     
-    ctables=load_data.cls_label_files(data_path, input_file, output_file)  ## data loading object
+    ctables=load_data.cls_label_files(data_path, input_file, output_file,number_of_columns)  ## data loading object
     ctables.irowcol=xdatacls.rowcol  ## set the row-col or col-row processing
     
     (xdata,nrow2,ncol2,ifixtrain,ifixtest)=ctables.load_twofiles()
