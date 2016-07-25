@@ -335,45 +335,46 @@ class cls_label_files:
     #fout=open(self.sbasedir+filename, 'w')
     fout=open(self.sbasedir+self.listout, 'w')
     #print('<<<   writiting results in file')
-    #fout.write('object1, object2, features, confidences'+'\n')
-    sline=""
+    fout.write("'object1','object2',"+'\n')
     if self.irowcol==0:
       for irow in range(self.nrow):
         iobject1=irow
         for iobject2 in range(self.nobject):
           sobject1=self.dobject_inv[iobject1]
           sobject2=self.dobject_inv[iobject2]
-          sline=""
+          sline="'"+sobject1+"'"+','+"'"+sobject2+"'"
           ## predictions
           for ifeature in range(self.nfeature):
             icol=ifeature+self.nfeature*iobject2
             vpred=xdata[irow,icol,0]
-            sline+=' '+str(int(vpred))
+            sline+=','+str(int(vpred))
           ## confidences
           for ifeature in range(self.nfeature):
             icol=ifeature+self.nfeature*iobject2
             vconf=xdata[irow,icol,1]
-            sline+=' '+str('%6.4f'%vconf)
+            sline+=','+str('%6.4f'%vconf)
           fout.write(sline+'\n')
     elif self.irowcol==1:
       for iobject1 in range(self.nobject):
         for iobject2 in range(self.nobject):
           sobject1=self.dobject_inv[iobject1]
           sobject2=self.dobject_inv[iobject2]
-          sline=""
+          sline="'"+sobject1+"'"+','+"'"+sobject2+"'"
           ## predictions
           for ifeature in range(self.nfeature):
             irow=ifeature+self.nfeature*iobject1
             icol=iobject2
             vpred=xdata[irow,icol,0]
-            sline+=' '+str(int(vpred))
+            sline+=','+str(int(vpred))
           ## confidences
           for ifeature in range(self.nfeature):
             icol=ifeature+self.nfeature*iobject1
             icol=iobject2
             vconf=xdata[irow,icol,1]
-            sline+=' '+str('%6.4f'%vconf)
+            sline+=','+str('%6.4f'%vconf)
           fout.write(sline+'\n')
+       
+    fout.close()
        
     fout.close()
         
