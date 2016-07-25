@@ -12,7 +12,7 @@ import mvm_mmmvr_lib.mvm_validation_cls as mvm_validation_cls
 
 rospy.init_node('relations_prediction')
 
-def test_mvm_main(workmode):
+def test_mvm_main(workmode, data_path, input_file, output_file):
 
   params=mmr_setparams.cls_params()
 
@@ -26,7 +26,7 @@ def test_mvm_main(workmode):
 
     Y0=np.array([0,1,2,3])
     
-    ctables=load_data.cls_label_files()  ## data loading object
+    ctables=load_data.cls_label_files(data_path, input_file, output_file)  ## data loading object
     ctables.irowcol=xdatacls.rowcol  ## set the row-col or col-row processing
     
     (xdata,nrow2,ncol2,ifixtrain,ifixtest)=ctables.load_twofiles()
@@ -87,12 +87,12 @@ def test_mvm_main(workmode):
 
 def callback(data):
     #input
-    #data.inputFile data.outputFile data.initilization
-    test_mvm_main(0)
-    #RecommendRelationsResponse.SUCCESS = uint8(1)
+    test_mvm_main(0, data.data_path, data.input_file, data.output_file)
+    resp = RecommendRelationsResponse()
+    resp.finished = True
     #RecommendRelationsResponse.FAILURE = uint8(0)
     #RecommendRelationsResponse.result = uint8(1)
-    #return RecommendRelationsResponse
+    return resp
 
 if __name__ == "__main__":
 	rospy.sleep(2)

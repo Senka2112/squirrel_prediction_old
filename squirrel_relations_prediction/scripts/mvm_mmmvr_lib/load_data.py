@@ -19,12 +19,12 @@ class cls_label_files:
 
   """
 
-  def __init__(self):
+  def __init__(self, data_path, input_file, output_file):
 
-    self.sbasedir='mvm_mmmvr_lib/data/'
-    #self.sbasedir='data/'
-    self.listfull=['full','full_20','full_40','full_60']
-    self.listknown=['known','known_20','known_40','known_60']
+    self.sbasedir=data_path
+    self.listfull=input_file
+    self.listknown=input_file
+    self.listout=output_file
     self.fileext='.csv'
     self.csv_delimiter=','
     self.headerline=1
@@ -63,9 +63,9 @@ class cls_label_files:
 
     ## first phase collect object labels
     if iknown==0:
-      sfile=self.listfull[ifile]
+      sfile=self.listfull
     else:
-      sfile=self.listknown[ifile]
+      sfile=self.listknown
       
     self.collect_objects(sfile)
     self.collect_relations(sfile,self.ddata_tra)
@@ -120,8 +120,8 @@ class cls_label_files:
     iknown1=1  ## known 
     iknown2=0  ## full
     ## first phase collect object labels
-    sfile1=self.listknown[0]
-    sfile2=self.listknown[0]
+    sfile1=self.listknown
+    sfile2=self.listknown
 
    
     self.collect_objects(sfile1)
@@ -195,7 +195,7 @@ class cls_label_files:
     to recover the object names
     """
     
-    with open(self.sbasedir+sfile+self.fileext, 'r') as infile:
+    with open(self.sbasedir+sfile) as infile:
       csv_reader = csv.reader(infile, delimiter=self.csv_delimiter)
       ifirst=self.headerline
       iobject=0
@@ -224,7 +224,7 @@ class cls_label_files:
       ddata[object1 index][object2 index]=[feture values] as string
     """
     ## second phase load the relation table
-    with open(self.sbasedir+sfile+self.fileext, 'r') as infile:
+    with open(self.sbasedir+sfile) as infile:
       csv_reader = csv.reader(infile, delimiter=self.csv_delimiter)
       ifirst=self.headerline
       for line in csv_reader:
@@ -333,7 +333,7 @@ class cls_label_files:
 
     ## export xdata into test file
     #fout=open(self.sbasedir+filename, 'w')
-    fout=open(self.sbasedir+'out.csv', 'w')
+    fout=open(self.sbasedir+self.listout, 'w')
     #print('<<<   writiting results in file')
     #fout.write('object1, object2, features, confidences'+'\n')
     sline=""
